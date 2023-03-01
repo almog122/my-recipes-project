@@ -6,17 +6,24 @@ body {
   background-color: #8b8e96;
 }
 
-#recipes-container{
+#recipes-container {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(3, 1fr);
 }
 
-.result{
+.recipe {
   display: grid;
-  height: 100px;
+  grid-gap: 10px;
+  grid-template-rows: 1fr 2fr 5fr;
   background-color: #d69212;
-  text-align: center;
-  align-content: center;
   border-radius: 4px;
+}
+
+.recipe > img {
+  max-width: 325px;
+  max-height: 325px;
+  box-shadow: 1px 1px 3px black;
+  border-radius: 5px;
+  cursor: pointer;
 }

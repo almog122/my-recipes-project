@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <scrpit src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></scrpit>
 </head>
 
 <body>
@@ -20,7 +23,7 @@
 
     <script id="recipes-template" type="text/x-handlebars-template">
         {{#each this}}
-            <div class="recipes" data-idMeal={{idMeal}}>
+            <div class="recipe" data-idMeal={{idMeal}}>
                 <h1 class = "title" >{{title}}</h1>
                 <img src={{thumbnail}}>
                 <ul class = "Ingredients"> Ingredients : 
@@ -32,8 +35,6 @@
         {{/each}}
     </script>
 
-    <script src="./jquery/dist/jquery.js"></script>
-    <script src="./handlebars/dist/handlebars.js"></script>
     <script src="renderer.js"></script>
     <script src="main.js"></script>
 </body>
