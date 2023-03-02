@@ -13,17 +13,30 @@ body {
 }
 
 .recipe {
-  display: grid;
-  grid-gap: 10px;
-  grid-template-rows: 1fr 2fr 5fr;
   background-color: #d69212;
-  border-radius: 4px;
 }
 
 .recipe > img {
-  max-width: 325px;
-  max-height: 325px;
+  max-width: 200px;
+  max-height: 200px;
   box-shadow: 1px 1px 3px black;
   border-radius: 5px;
   cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.recipe > a {
+  display: block;
+  margin: 7px;
+  font-size: 25px;
+}
+
+.recipe > li {
+  display: block;
+  margin: 2px;
+  width: 20px;
+  height: 20px;
+  /* font-size: 25px; */
 }

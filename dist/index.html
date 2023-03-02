@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="./jquery/dist/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
-    <scrpit src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></scrpit>
 </head>
 
 <body>
@@ -19,16 +18,31 @@
         <button onclick=getRecpiesByIngredient()> Search </button>
     </div>
 
+    <fieldset>
+        <legend>Choose your food sensitivity:</legend>
+
+        <div>
+            <input type="checkbox" id="dairyCheck" name="dairyIngredients">
+            <label> dairy products </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="glutenCheck" name="glutenIngredients ">
+            <label> gluten products </label>
+        </div>
+    </fieldset>
+
     <div id="recipes-container"></div>
 
     <script id="recipes-template" type="text/x-handlebars-template">
         {{#each this}}
             <div class="recipe" data-idMeal={{idMeal}}>
-                <h1 class = "title" >{{title}}</h1>
+                <a class = "title" href={{href}}>{{title}}</a>
                 <img src={{thumbnail}}>
-                <ul class = "Ingredients"> Ingredients : 
+                <div>Ingredients :</div>
+                <ul class = "Ingredients list-group list-group-horizontal"> 
                 {{#each ingredients}}
-                    <li>{{this}}</li>
+                    <li class="list-group-item flex-fill">{{this}}</li>
                 {{/each}}
                 </ul>
             </div>
