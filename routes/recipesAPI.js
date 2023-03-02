@@ -23,7 +23,8 @@ const recipesFilterBySensitivity = (isDairySensitive = false, isGlutenSensitive 
 
     if (isDairySensitive) {
       for(dairy of dairyIngredients){
-        if(recipe.ingredients.includes(dairy)){
+        if(recipe.ingredients.includes(dairy) || recipe.ingredients.includes(dairy.toLowerCase())){
+
           return false
         }
       }
@@ -31,7 +32,8 @@ const recipesFilterBySensitivity = (isDairySensitive = false, isGlutenSensitive 
 
     if (isGlutenSensitive) {
       for(gluten of glutenIngredients){
-        if(recipe.ingredients.includes(gluten)){
+        if(recipe.ingredients.includes(gluten)|| recipe.ingredients.includes(gluten.toLowerCase())){
+
           return false
         }
       }

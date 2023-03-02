@@ -6,8 +6,8 @@ let isGlutenSensitive = false;
 const getRecpiesByIngredient = function () {
   let ingredient = $("#ingredient-input").val();
   let sensitivity = {
-    isDairySensitive: isDairySensitive,
-    isGlutenSensitive: isGlutenSensitive,
+    isDairySensitive: isDairySensitive ,
+    isGlutenSensitive: isGlutenSensitive ,
   };
   $.get(`/recipes/${ingredient}`, sensitivity)
     .then((response) => {

@@ -1,19 +1,36 @@
-* {
-  font-family: "PT Sans", sans-serif;
+body {
+  background-color: #7c7e85;
 }
 
-body {
-  background-color: #8b8e96;
+fieldset {
+  background-color: #eeeeee;
+  margin: 5px;
+}
+
+legend {
+  background-color: rgb(238, 11, 11);
+  color: rgb(15, 7, 7);
+  padding: 5px 10px;
+}
+
+label{
+  font-weight: bold;
+  font-size: large;
+}
+
+#ingredient{
+  margin: 20px;
 }
 
 #recipes-container {
+  font-family: "PT Sans", sans-serif;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(3, 1fr);
 }
 
 .recipe {
-  background-color: #d69212;
+  background-color: #c88407;
 }
 
 .recipe > img {
@@ -29,14 +46,25 @@ body {
 
 .recipe > a {
   display: block;
-  margin: 7px;
+  margin: 20px;
+  font-size: 25px;
+}
+
+.recipe > div {
+  display: block;
+  margin: 10px;
   font-size: 25px;
 }
 
 .recipe > li {
-  display: block;
+  display: inline-block;
   margin: 2px;
   width: 20px;
   height: 20px;
-  /* font-size: 25px; */
+}
+
+.Ingredients{
+  display: grid;
+  grid-gap: 3px;
+  grid-template-columns: repeat(3, 1fr);
 }
