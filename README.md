@@ -4,8 +4,8 @@ a server that takes recipes with specific ingredient from user input and shows t
 ## Table Of Contents
   
   * [Screenshots](#screenshots)
-    + [Get recipes by ingredient](#add-or-update-client)
-    + [Filter by food senstivity](#analytics-dashboard)
+    + [Get recipes by ingredient](#Get-recipes-by-ingredient)
+    + [Filter by food senstivity](#Filter-by-food-senstivity)
   * [Tech Stack](#tech-stack)
 
 
