@@ -10,4 +10,8 @@ class Renderer {
     const newHTML = template(data);
     this.container.append(newHTML);
   }
+
+  renderPageEmpty(){
+    this.container.empty();
+  }
 }

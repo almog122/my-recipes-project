@@ -58,10 +58,14 @@ router.get("/recipes/:ingredient", function (req, res) {
     .then(function (response) {
       recipes = response.data.results.map(mapRecipes);
       recipesFilterBySensitivity(isDairySensitive, isGlutenSensitive)
+      if(Object.keys(recipes).length == 0){
+        res.status(404).end();
+        return
+      }
       res.send(recipes);
     })
-    .catch(function (error) {
-      res.send(`Failed to recipes with ingredient: ${ingredient}`);
+    .catch((error) => {
+      res.status(400).send(`Failed to get recipes`);
     });
 });
 

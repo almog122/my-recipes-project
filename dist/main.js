@@ -13,7 +13,10 @@ const getRecpiesByIngredient = function () {
     .then((response) => {
       renderer.renderPage(response);
     })
-    .catch(error => console.log(`No recipes found`));
+    .catch(() => {
+      renderer.renderPageEmpty()
+      alert(`Failed to find recipes`)
+    });
 };
 
 const firstIngredientAlert = function () {
@@ -26,6 +29,8 @@ const filterRecpiesBySensitivity = function () {
   isGlutenSensitive = $("#glutenCheck").is(":checked");
   getRecpiesByIngredient()
 };
+
+$('#searchRecpies').on('click', getRecpiesByIngredient);
 
 $("body").on("click", "img", firstIngredientAlert);
 
