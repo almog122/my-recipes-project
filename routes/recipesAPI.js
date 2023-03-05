@@ -4,7 +4,6 @@ const recipesModule = require("./recipesModule");
 
 const router = express.Router();
 
-let recipes = []
 const LIMIT = 4;
 
 router.get("/recipes/:ingredient", function (req, res) {
@@ -16,7 +15,7 @@ router.get("/recipes/:ingredient", function (req, res) {
       `https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/${ingredient}`
     )
     .then(function (response) {
-      recipes = recipesModule.map(response.data.results);
+      let recipes = recipesModule.map(response.data.results);
       recipes = recipesModule.filter(isDairySensitive, isGlutenSensitive , recipes)
 
       let recipesPages = []
