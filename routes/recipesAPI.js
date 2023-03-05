@@ -20,7 +20,7 @@ router.get("/recipes/:ingredient", function (req, res) {
 
       let recipesPages = []
       while(LIMIT < recipes.length){
-        recipesPages.push(recipes.splice(LIMIT))
+        recipesPages.push(recipes.splice(0 , LIMIT))
       }
 
       if(recipes.length > 0){
