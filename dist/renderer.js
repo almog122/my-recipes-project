@@ -1,17 +1,31 @@
 class Renderer {
   constructor() {
-    this.source = $("#recipes-template").html();
-    this.container = $("#recipes-container")
+    this.recipesSource = $("#recipes-template").html();
+    this.recipesContainer = $("#recipes-container")
+
+    this.pagesSource = $("#pages-template").html();
+    this.pagesContainer = $("#pages-container")
   }
 
-  renderPage(data){
-    this.container.empty();
-    const template = Handlebars.compile(this.source);
+  renderRecipesPage(data){
+    this.recipesContainer.empty();
+    const template = Handlebars.compile(this.recipesSource);
     const newHTML = template(data);
-    this.container.append(newHTML);
+    this.recipesContainer.append(newHTML);
   }
 
-  renderPageEmpty(){
-    this.container.empty();
+  renderPages(data){
+    this.pagesContainer.empty();
+    const template = Handlebars.compile(this.pagesSource);
+    const newHTML = template(data);
+    this.pagesContainer.append(newHTML);
+  }
+
+  renderPagesEmpty(){
+    this.pagesContainer.empty();
+  }
+
+  renderRecipesPageEmpty(){
+    this.recipesContainer.empty();
   }
 }
