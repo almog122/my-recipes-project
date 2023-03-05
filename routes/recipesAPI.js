@@ -7,6 +7,7 @@ const router = express.Router();
 let recipes = []
 const dairyIngredients = foodSensitivity.dairyIngredients;
 const glutenIngredients = foodSensitivity.glutenIngredients;
+const LIMIT = 4;
 
 const mapRecipes = function (recipesArr) {
   return {
@@ -58,38 +59,19 @@ router.get("/recipes/:ingredient", function (req, res) {
     .then(function (response) {
       recipes = response.data.results.map(mapRecipes);
       recipesFilterBySensitivity(isDairySensitive, isGlutenSensitive)
-      if(Object.keys(recipes).length == 0){
-        res.status(404).end();
-        return
-      }
-      res.send(recipes);
-    })
-    .catch((error) => {
-      res.status(400).send(`Failed to get recipes`);
-    });
-});
 
-router.get("/recipes/:ingredient/:limit", function (req, res) {
-  let isDairySensitive = req.query.isDairySensitive == 'true';
-  let isGlutenSensitive = req.query.isGlutenSensitive == 'true';
-  let limit = req.params.limit;
-  let ingredient = req.params.ingredient;
-  axios
-    .get(
-      `https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/${ingredient}`
-    )
-    .then(function (response) {
-      recipes = response.data.results.map(mapRecipes);
-      recipesFilterBySensitivity(isDairySensitive, isGlutenSensitive)
-
-      const recipesPages = []
-
-      while(limit < recipes.length){
-        recipesPages.push(recipes.splice(limit))
+      let recipesPages = []
+      while(LIMIT < recipes.length){
+        recipesPages.push(recipes.splice(LIMIT))
       }
 
       if(recipes.length > 0){
         recipesPages.push(recipes)
+      }
+
+      if(recipesPages.length == 0){
+        res.status(204).send(recipesPages)
+        return
       }
 
       res.send(recipesPages);

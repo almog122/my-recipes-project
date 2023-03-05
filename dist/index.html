@@ -32,9 +32,9 @@
         </div>
     </fieldset>
 
-    <div id="recipes-container"></div>
-
     <div id="pages-container"></div>
+
+    <div id="recipes-container"></div>
 
     <script id="recipes-template" type="text/x-handlebars-template">
         {{#each this}}
@@ -53,10 +53,11 @@
 
     <script id="pages-template" type="text/x-handlebars-template">
         {{#each this}}
-            <button class="page">{{this}}</button>
+            <button class="page" data-page={{this}}> {{pagesNumbers this}}</button>
         {{/each}}
     </script>
 
+    <script src="handlebars-helpers.js"></script>
     <script src="renderer.js"></script>
     <script src="main.js"></script>
 </body>

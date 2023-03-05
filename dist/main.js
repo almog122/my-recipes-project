@@ -1,6 +1,5 @@
 const renderer = new Renderer();
 
-const LIMIT = 4;
 let recipesPages = []
 
 let isDairySensitive = false;
@@ -12,12 +11,11 @@ const getRecpiesByIngredient = function () {
     isDairySensitive: isDairySensitive ,
     isGlutenSensitive: isGlutenSensitive ,
   };
-  $.get(`/recipes/${ingredient}/${LIMIT}`, sensitivity)
+  $.get(`/recipes/${ingredient}`, sensitivity)
     .then((response) => {
       recipesPages = response
-      page = 0
       renderer.renderPages(recipesPages.keys())
-      renderer.renderRecipesPage(recipesPages[page]);
+      renderer.renderRecipesPage(recipesPages[0]);
     })
     .catch(() => {
       renderer.renderPagesEmpty()
@@ -32,7 +30,7 @@ const firstIngredientAlert = function () {
 };
 
 const getRecpiesPage = function () {
-  let page = Number($(this).text());
+  let page = Number($(this).data('page'));
   renderer.renderRecipesPage(recipesPages[page]);
 };
 
@@ -49,19 +47,3 @@ $("body").on("click", "img", firstIngredientAlert);
 $("body").on("click", ".page", getRecpiesPage);
 
 $("input[type=checkbox]").on("change", filterRecpiesBySensitivity);
-
-// const getRecpiesByIngredient = function () {
-//   let ingredient = $("#ingredient-input").val();
-//   let sensitivity = {
-//     isDairySensitive: isDairySensitive ,
-//     isGlutenSensitive: isGlutenSensitive ,
-//   };
-//   $.get(`/recipes/${ingredient}`, sensitivity)
-//     .then((response) => {
-//       renderer.renderPage(response);
-//     })
-//     .catch(() => {
-//       renderer.renderPageEmpty()
-//       console.log(`Failed to find recipes`)
-//     });
-// };
