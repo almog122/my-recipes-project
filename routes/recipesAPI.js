@@ -4,7 +4,7 @@ const recipesModule = require("./recipesModule");
 
 const router = express.Router();
 
-const LIMIT = 3;
+const LIMIT = 4;
 
 router.get("/recipes/:ingredient", function (req, res) {
   let isDairySensitive = req.query.isDairySensitive == 'true';
