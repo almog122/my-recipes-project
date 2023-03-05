@@ -25,7 +25,7 @@ router.get("/recipes/:ingredient", function (req, res) {
       }
 
       if(recipes.length > 0){
-        recipesPages.push(recipes)
+        recipesPages.unshift(recipes)
       }
 
       if(recipesPages.length == 0){

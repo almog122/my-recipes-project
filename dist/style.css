@@ -22,6 +22,11 @@ label{
   margin: 20px;
 }
 
+.page{
+  font-weight: bold;
+  font-size: large;
+}
+
 #recipes-container {
   font-family: "PT Sans", sans-serif;
   display: grid;
