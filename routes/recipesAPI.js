@@ -69,4 +69,34 @@ router.get("/recipes/:ingredient", function (req, res) {
     });
 });
 
+router.get("/recipes/:ingredient/:limit", function (req, res) {
+  let isDairySensitive = req.query.isDairySensitive == 'true';
+  let isGlutenSensitive = req.query.isGlutenSensitive == 'true';
+  let limit = req.params.limit;
+  let ingredient = req.params.ingredient;
+  axios
+    .get(
+      `https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/${ingredient}`
+    )
+    .then(function (response) {
+      recipes = response.data.results.map(mapRecipes);
+      recipesFilterBySensitivity(isDairySensitive, isGlutenSensitive)
+
+      const recipesPages = []
+
+      while(limit < recipes.length){
+        recipesPages.push(recipes.splice(limit))
+      }
+
+      if(recipes.length > 0){
+        recipesPages.push(recipes)
+      }
+
+      res.send(recipesPages);
+    })
+    .catch((error) => {
+      res.status(400).send(`Failed to get recipes`);
+    });
+});
+
 module.exports = router;

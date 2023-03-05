@@ -1,7 +1,27 @@
 const renderer = new Renderer();
 
+const LIMIT = 4;
+let recipesPages = []
+let page;
+
 let isDairySensitive = false;
 let isGlutenSensitive = false;
+
+// const getRecpiesByIngredient = function () {
+//   let ingredient = $("#ingredient-input").val();
+//   let sensitivity = {
+//     isDairySensitive: isDairySensitive ,
+//     isGlutenSensitive: isGlutenSensitive ,
+//   };
+//   $.get(`/recipes/${ingredient}`, sensitivity)
+//     .then((response) => {
+//       renderer.renderPage(response);
+//     })
+//     .catch(() => {
+//       renderer.renderPageEmpty()
+//       console.log(`Failed to find recipes`)
+//     });
+// };
 
 const getRecpiesByIngredient = function () {
   let ingredient = $("#ingredient-input").val();
@@ -9,15 +29,26 @@ const getRecpiesByIngredient = function () {
     isDairySensitive: isDairySensitive ,
     isGlutenSensitive: isGlutenSensitive ,
   };
-  $.get(`/recipes/${ingredient}`, sensitivity)
+  $.get(`/recipes/${ingredient}/${LIMIT}`, sensitivity)
     .then((response) => {
-      renderer.renderPage(response);
+      recipesPages = response
+      page = 0
+      renderer.renderPage(recipesPages[page]);
     })
     .catch(() => {
       renderer.renderPageEmpty()
-      alert(`Failed to find recipes`)
+      console.log(`Failed to find recipes`)
     });
 };
+
+const getNextRecpiesPage = function(){
+  if(page < recipesPages.length){
+    renderer.renderPage(recipesPages[++page])
+  }else{
+    page = 0;
+    renderer.renderPage(recipesPages[page])
+  }
+}
 
 const firstIngredientAlert = function () {
   let firstIngredient = $(this).closest(".recipe").find(".Ingredients").children()[0].innerHTML;
@@ -31,6 +62,8 @@ const filterRecpiesBySensitivity = function () {
 };
 
 $('#searchRecpies').on('click', getRecpiesByIngredient);
+
+$('#nextPage').on('click', getNextRecpiesPage);
 
 $("body").on("click", "img", firstIngredientAlert);
 
