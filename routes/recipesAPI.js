@@ -1,52 +1,11 @@
 const express = require("express");
 const axios = require("axios");
-const foodSensitivity = require("./food-sensitivity.json");
+const recipesModule = require("./recipesModule");
 
 const router = express.Router();
 
 let recipes = []
-const dairyIngredients = foodSensitivity.dairyIngredients;
-const glutenIngredients = foodSensitivity.glutenIngredients;
 const LIMIT = 4;
-
-const mapRecipes = function (recipesArr) {
-  return {
-    idMeal: recipesArr.idMeal,
-    ingredients: recipesArr.ingredients,
-    title: recipesArr.title,
-    thumbnail: recipesArr.thumbnail,
-    href: recipesArr.href,
-  };
-};
-
-const recipesFilterBySensitivity = (isDairySensitive = false, isGlutenSensitive = false) => {
-  recipes = recipes.filter( recipe => {
-
-    if (isDairySensitive) {
-      for(dairy of dairyIngredients){
-        for(ingredient of recipe.ingredients){
-          if(ingredient.includes(dairy) || ingredient.includes(dairy.toLowerCase())){
-
-            return false
-          }
-        }
-      }
-    }
-
-    if (isGlutenSensitive) {
-      for(gluten of glutenIngredients){
-        for(ingredient of recipe.ingredients){
-          if(ingredient.includes(gluten) || ingredient.includes(gluten.toLowerCase())){
-
-            return false
-          }
-        }
-      }
-    }
-
-    return true;
-  });
-}
 
 router.get("/recipes/:ingredient", function (req, res) {
   let isDairySensitive = req.query.isDairySensitive == 'true';
@@ -57,8 +16,8 @@ router.get("/recipes/:ingredient", function (req, res) {
       `https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/${ingredient}`
     )
     .then(function (response) {
-      recipes = response.data.results.map(mapRecipes);
-      recipesFilterBySensitivity(isDairySensitive, isGlutenSensitive)
+      recipes = recipesModule.map(response.data.results);
+      recipes = recipesModule.filter(isDairySensitive, isGlutenSensitive , recipes)
 
       let recipesPages = []
       while(LIMIT < recipes.length){
