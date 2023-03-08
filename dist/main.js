@@ -13,9 +13,10 @@ const getRecpiesByIngredient = function () {
   };
   $.get(`/recipes/${ingredient}`, sensitivity)
     .then((response) => {
-      recipesPages = response
-      renderer.renderPages(recipesPages.keys())
-      renderer.renderRecipesPage(recipesPages[0]);
+      firstPage = response[0]
+      Pages = response[1]
+      renderer.renderPages(Pages)
+      renderer.renderRecipesPage(firstPage);
     })
     .catch(() => {
       renderer.renderPagesEmpty()
@@ -31,7 +32,15 @@ const firstIngredientAlert = function () {
 
 const getRecpiesPage = function () {
   let page = Number($(this).data('page'));
-  renderer.renderRecipesPage(recipesPages[page]);
+  $.get(`/recipesPage/${page}`)
+    .then((response) => {
+      renderer.renderRecipesPage(response);
+    })
+    .catch(() => {
+      renderer.renderPagesEmpty()
+      renderer.renderRecipesPageEmpty()
+      console.log(`Failed to find page`)
+    });
 };
 
 const filterRecpiesBySensitivity = function () {
