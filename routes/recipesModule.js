@@ -1,9 +1,9 @@
-
 const foodSensitivity = require("./food-sensitivity.json");
-const dairyIngredients = foodSensitivity.dairyIngredients;
-const glutenIngredients = foodSensitivity.glutenIngredients;
+
+let foodSensitivityArr = Object.values(foodSensitivity);
 
 const recipesModule = function () {
+
   const mapRecipes = function (recipes) {
     return recipes.map((r) => {
       return {
@@ -16,45 +16,35 @@ const recipesModule = function () {
     });
   };
 
-  const recipesFilterBySensitivity = (
-    isDairySensitive = false,
-    isGlutenSensitive = false,
-    recipes
-  ) => {
+  const FilterSensitivity = function (sensitivityIngredients, recipe) {
+    for (senIngredients of sensitivityIngredients) {
+      for (recIngredient of recipe.ingredients) {
+        if (recIngredient.includes(senIngredients) || recIngredient.includes(senIngredients.toLowerCase())) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  };
+
+  const recipesFilterBySensitivities = (sensitivity, recipes) => {
     return recipes.filter((recipe) => {
-      if (isDairySensitive) {
-        for (dairy of dairyIngredients) {
-          for (ingredient of recipe.ingredients) {
-            if (
-              ingredient.includes(dairy) ||
-              ingredient.includes(dairy.toLowerCase())
-            ) {
-              return false;
-            }
-          }
+      let flag = true;
+
+      for (index in foodSensitivityArr) {
+        if (sensitivity[index] == "true") {
+          flag = FilterSensitivity(foodSensitivityArr[index], recipe) && flag;
         }
       }
 
-      if (isGlutenSensitive) {
-        for (gluten of glutenIngredients) {
-          for (ingredient of recipe.ingredients) {
-            if (
-              ingredient.includes(gluten) ||
-              ingredient.includes(gluten.toLowerCase())
-            ) {
-              return false;
-            }
-          }
-        }
-      }
-
-      return true;
+      return flag;
     });
   };
 
   return {
     map: mapRecipes,
-    filter: recipesFilterBySensitivity,
+    filter: recipesFilterBySensitivities,
   };
 };
 

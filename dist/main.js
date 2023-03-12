@@ -5,13 +5,16 @@ let recipesPages = []
 let isDairySensitive = false;
 let isGlutenSensitive = false;
 
+const ingredientInput = $("#ingredient-input");
+
 const getRecpiesByIngredient = function () {
-  let ingredient = $("#ingredient-input").val();
-  let sensitivity = {
-    isDairySensitive: isDairySensitive ,
-    isGlutenSensitive: isGlutenSensitive ,
+  let ingredient = ingredientInput.val();
+  let sensitivity = [isDairySensitive , isGlutenSensitive]
+  
+  let data = {
+    sensitivity : sensitivity
   };
-  $.get(`/recipes/${ingredient}`, sensitivity)
+  $.get(`/recipes/${ingredient}`, data)
     .then((response) => {
       firstPage = response[0]
       Pages = response[1]

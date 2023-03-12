@@ -9,14 +9,13 @@ const RECIPES_URL = "https://recipes-goodness-elevation.herokuapp.com/recipes/in
 let recipesPages
 
 router.get("/recipes/:ingredient", function (req, res) {
-  let isDairySensitive = req.query.isDairySensitive == 'true';
-  let isGlutenSensitive = req.query.isGlutenSensitive == 'true';
+  let sensitivity = req.query.sensitivity
   let ingredient = req.params.ingredient;
   
   axios.get(`${RECIPES_URL}/${ingredient}`)
     .then(function (response) {
       let recipes = recipesModule.map(response.data.results);
-      recipes = recipesModule.filter(isDairySensitive, isGlutenSensitive , recipes)
+      recipes = recipesModule.filter(sensitivity, recipes)
 
       recipesPages = []
       while(LIMIT < recipes.length){
